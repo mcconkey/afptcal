@@ -24,16 +24,14 @@ angular.module('starter.controllers', [])
       'sexToggle': true,
       'displaySex': 'Male',
       'runExempt': false,
-      'situpExempt': false,
-      'pushupExempt': false,
+      'situpsExempt': false,
+      'pushupsExempt': false,
       'bodyCompExempt': false,
       'walkExempt': false
     }
   };
 
   $scope.$watch($scope.data.settings, function(){
-  //$scope.$watch(function() { return $scope.data.settings}, function(){
-    //console.log('changing settings');
     localstorage.setObject('settings', $scope.data.settings);
   }, true);
   /*
@@ -43,6 +41,7 @@ angular.module('starter.controllers', [])
   ptCharts.getCharts().then(
     function () {
       $scope.data.minMax = ptCharts.getMinMaxes($scope.data.cc);
+      $scope.data.minMax.cardio.displayMax = secondsMSDisplay(($scope.data.minMax.cardio.min - 1));
       calculateScore();
       //console.log('this is min max: ' + JSON.stringify($scope.data.minMax));
     }, 
@@ -60,6 +59,7 @@ angular.module('starter.controllers', [])
     console.log('changeState: '+ JSON.stringify($scope.data.settings))
     $scope.data.cc = buildChosenChart();
     $scope.data.minMax = ptCharts.getMinMaxes($scope.data.cc);
+    calculateScore();
   });
 
 
@@ -111,10 +111,12 @@ angular.module('starter.controllers', [])
     var cc = $scope.data.cc; //until selector thing is built just use the one chart for testing
    
     $scope.data.bodyComp = 20 + ($scope.data.bodyCompSlider / 2);
-    $scope.data.bodyCompScore = ptCharts.getAbScore($scope.data.bodyComp, cc);
-    $scope.data.runScore = ptCharts.getRunScore($scope.data.runTimeSec, cc);
-    $scope.data.pushupScore = ptCharts.getPushupScore($scope.data.pushUpSlider, cc);
-    $scope.data.situpScore = ptCharts.getSitupScore($scope.data.sitUpSlider, cc);
+    $scope.data.bodyCompScore = $scope.data.settings.bodyCompExempt ? 20 : ptCharts.getAbScore($scope.data.bodyComp, cc);
+    $scope.data.runScore = $scope.data.settings.runExempt ? 60 : ptCharts.getRunScore($scope.data.runTimeSec, cc);
+    $scope.data.pushupScore = $scope.data.settings.pushupsExempt ? 10 : ptCharts.getPushupScore($scope.data.pushUpSlider, cc);
+    $scope.data.situpScore = $scope.data.settings.situpsExempt ? 10 : ptCharts.getSitupScore($scope.data.sitUpSlider, cc);
+
+    console.log('situpsExempt' + $scope.data.settings.situpsExempt);
 
     $scope.data.allPassed = (!$scope.data.bodyCompScore ||
       !$scope.data.runScore ||
@@ -147,6 +149,15 @@ angular.module('starter.controllers', [])
     console.log($scope.data.runTime);
   };
 
+  var secondsMSDisplay = function(seconds){
+    console.log('called secondsDisplay fn');
+    var minutes = Math.floor(seconds / 60);
+    seconds -= minutes *60;
+    var seconds = parseInt(seconds % 60, 10);
+    var ret_v =  (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds);
+    console.log("some val: " + ret_v);
+    return ret_v;
+  };
 
 
   var timeoutId = null;

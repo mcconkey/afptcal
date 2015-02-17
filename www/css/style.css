@@ -25,6 +25,10 @@
 	text-align: right;
 }
 
+.exempt{
+	background-color: yellow;
+}
+
 .no_pad{
 	padding: 0px;
 }
@@ -32,6 +36,7 @@
 .pad_top{
 	margin-top: 8px;
 }
+
 
 
 .sat{

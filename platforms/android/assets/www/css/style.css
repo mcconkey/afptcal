@@ -30,5 +30,10 @@
 }
 
 .pad_top{
-	margin-top: 6px;
+	margin-top: 8px;
+}
+
+
+.sat{
+	color: green;
 }

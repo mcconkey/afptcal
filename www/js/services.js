@@ -168,14 +168,13 @@ angular.module('starter.services', [])
           if(abSize > parseFloat(key)){
             //console.log('absize '+ abSize+ ' key: ' + key + ' value: ' + chart[key] )
           }else{
-          //  console.log('returning: ' + chart[key])
+
             return parseFloat(chart[key]);
           }
         }
 
-         //console.log('procCharts:' + JSON.stringify(procCharts[chartChoosen]));
-         //return 10;
-
+        // return score of 0 if did not find score...
+        return 0;
       },
       getPushupScore: function (pushups, chartChoosen) {
         var chart = procCharts[chartChoosen]["pushups"];

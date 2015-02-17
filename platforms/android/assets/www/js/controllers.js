@@ -12,11 +12,13 @@ angular.module('starter.controllers', [])
     'sliderValue': 800,
     'pushUpSlider': 37,
     'sitUpSlider': 37,
-    'abScore': 0,
+    'bodyCompScore': 0,
     'pushupScore': 0,
     'situpScore': 0,
     'runScore': 0,
+    'allPassed': true,
     'cc': 'male_run_under30',
+    'cc_display': 'Male under 30',
     'minMax': {},
     'settings': {
       'sexToggle': true,
@@ -82,7 +84,7 @@ angular.module('starter.controllers', [])
         age = 'above59';
         break;
     }
-    
+    $scope.data.cc_display = ($scope.data.settings.sexToggle ? 'Male ' : 'Female ') + age;
     return ($scope.data.settings.sexToggle ? 'male_' : 'female_') + 'run_' + age;
   };
 
@@ -109,14 +111,27 @@ angular.module('starter.controllers', [])
     var cc = $scope.data.cc; //until selector thing is built just use the one chart for testing
    
     $scope.data.bodyComp = 20 + ($scope.data.bodyCompSlider / 2);
-    $scope.data.abScore = ptCharts.getAbScore($scope.data.bodyComp, cc);
+    $scope.data.bodyCompScore = ptCharts.getAbScore($scope.data.bodyComp, cc);
     $scope.data.runScore = ptCharts.getRunScore($scope.data.runTimeSec, cc);
-    
-   // console.log("abScore: " + $scope.data.abScore + " runScore: " + $scope.data.runScore);
+    $scope.data.pushupScore = ptCharts.getPushupScore($scope.data.pushUpSlider, cc);
+    $scope.data.situpScore = ptCharts.getSitupScore($scope.data.sitUpSlider, cc);
 
-    $scope.data.score = ($scope.data.runScore + $scope.data.abScore 
-      + ptCharts.getPushupScore($scope.data.pushUpSlider, cc) 
-      + ptCharts.getSitupScore($scope.data.sitUpSlider, cc)).toFixed(1);
+    $scope.data.allPassed = (!$scope.data.bodyCompScore ||
+      !$scope.data.runScore ||
+      !$scope.data.pushupScore ||
+      !$scope.data.situpScore) ? false : true;
+
+
+    
+    console.log("abScore: " + $scope.data.bodyCompScore 
+      + " runScore: " + $scope.data.runScore
+      + " pushup: "+ $scope.data.pushupScore
+      + " situp: "+ $scope.data.situpScore);
+
+    $scope.data.score = ($scope.data.runScore 
+      + $scope.data.bodyCompScore 
+      + $scope.data.pushupScore 
+      + $scope.data.situpScore).toFixed(1);
     //console.log('PT score: '+ $scope.data.score);
   };
 

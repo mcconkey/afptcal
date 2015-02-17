@@ -17,7 +17,7 @@
               </div>
              <div class="col no_pad">
                 <div class="small_score" style="padding: 0px; margin: 0px;">{{data.runScore}}</div>
-                <div class="small_score"style="padding: 0px; margin: 0px;">0{{data.bodyCompScore}}</div>
+                <div class="small_score"style="padding: 0px; margin: 0px;">{{data.bodyCompScore}}</div>
                 <div class="small_score" style="padding: 0px; margin: 0px;">{{data.pushupScore}}</div>
                 <div class="small_score_b" style="padding: 0px; margin: 0px;">{{data.situpScore}}</div>
              </div>
@@ -25,8 +25,9 @@
         </div>
         <div class="item item-divider">
           <em class="text-center">
-          <h2 class="assertive" ng-hide="data.runScore > 0">Unsatisfactory!</h2>
-          <h2 class="positive" ng-hide="data.runScore == 0">Satisfatory</h2>
+          <h2 class="assertive" ng-show="data.score < 75 || data.allPassed == false">Unsatisfactory!</h2>
+          <h2 class="sat" ng-show="data.score >= 75 && data.score < 90 && data.allPassed == true">Satisfactory</h2>
+          <h2 class="positive" ng-show="data.score > 90 && data.allPassed == true">Excellent</h2>
           </em>
         </div>
 
@@ -47,15 +48,13 @@
             ng-click="selectWoman()">
         </button>
       <br />
-      <span>Score Sheet: {{data.cc}}</span>
+      <span>{{data.cc_display}}</span>
     </div>
   </div>
 
    <!-- Run Time Slide -->
-  <div 
-      class="item range range-positive"
-      ng-hide="data.settings.runExempt"
-      >
+   <span ng-hide="data.settings.runExempt">
+  <div class="item range range-positive">
     <i class="icon ion-ribbon-a"></i>
     <input 
         type="range" 
@@ -67,7 +66,12 @@
         />
     <i class="icon ion-sad"></i> 
   </div>
-  <div>Run time: {{data.runTime}} / max: {{data.minMax.cardio.min}} || Exempt: {{data.settings.runExempt}}</div>
+  <div>Run time: {{data.runTime}} / max: {{data.minMax.cardio.min}}</div>
+</span>
+  <div ng-show="data.settings.runExempt">
+    <h3> Run Exempt </h3>
+  </div>
+   
   <div 
       class="item range range-positive"
       ng-hide="data.settings.bodyCompExempt">
