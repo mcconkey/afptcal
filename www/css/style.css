@@ -1,0 +1,39 @@
+/* Empty. Add your own CSS if you like */
+
+.not_selected{
+	border: 0px;
+	color: #DDD;
+}
+
+.big_button{
+	font-size: 100px !important;
+}
+
+.hidden{
+	display: none;
+}
+
+.small_score{
+	border-bottom:1px solid #DDD; 
+	border-left: 1px solid #DDD;
+	padding: 0px;
+	text-align: right;
+}
+.small_score_b{
+	border-left: 1px solid #DDD;
+	padding: 0px;
+	text-align: right;
+}
+
+.no_pad{
+	padding: 0px;
+}
+
+.pad_top{
+	margin-top: 8px;
+}
+
+
+.sat{
+	color: green;
+}

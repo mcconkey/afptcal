@@ -1,0 +1,97 @@
+<ion-view view-title="Calculator">
+  <ion-content class="padding">
+  
+  <div class="row row-top no_pad">
+    <div class="col">
+      <!--ScoreBox -->
+      <div class="card" style="margin: 0px">
+        <div class="item item-divider text-center">
+          <h2><strong>Score</strong></h2>
+        </div>
+        <div class="item item-text-wrap no_pad">
+          <div class="row row-top no_pad" style="padding: 0px;">
+             <div class="col col-75 pad_top">
+                <h1 class="text-center pad_top">
+                  {{data.score}}
+                </h1>
+              </div>
+             <div class="col no_pad">
+                <div class="small_score" style="padding: 0px; margin: 0px;">{{data.runScore}}</div>
+                <div class="small_score"style="padding: 0px; margin: 0px;">0{{data.bodyCompScore}}</div>
+                <div class="small_score" style="padding: 0px; margin: 0px;">{{data.pushupScore}}</div>
+                <div class="small_score_b" style="padding: 0px; margin: 0px;">{{data.situpScore}}</div>
+             </div>
+          </div>
+        </div>
+        <div class="item item-divider">
+          <em class="text-center">
+          <h2 class="assertive" ng-hide="data.runScore > 0">Unsatisfactory!</h2>
+          <h2 class="positive" ng-hide="data.runScore == 0">Satisfatory</h2>
+          </em>
+        </div>
+
+      </div>
+    </div>
+    <div class="col col-center text-center">
+      
+       <button 
+            class="button button-icon ion-man big_button" 
+            ng-class="{positive: data.settings.sexToggle==true, not_selected: data.settings.sexToggle==false}" 
+            ng-model="config.sexToggle" 
+            ng-click="selectMan()">
+        </button>
+        <button 
+            class="button button-icon ion-woman big_button" 
+            ng-class="{not_selected:  data.settings.sexToggle==true, positive:  data.settings.sexToggle==false}" 
+            ng-model="config.sexToggle"
+            ng-click="selectWoman()">
+        </button>
+      <br />
+      <span>Score Sheet: {{data.cc}}</span>
+    </div>
+  </div>
+
+   <!-- Run Time Slide -->
+  <div 
+      class="item range range-positive"
+      ng-hide="data.settings.runExempt"
+      >
+    <i class="icon ion-ribbon-a"></i>
+    <input 
+        type="range" 
+        name="volume" 
+        min="{{data.minMax.cardio.max}}" 
+        max="{{data.minMax.cardio.min}}" 
+        value="800" 
+        ng-model="data.sliderValue"
+        />
+    <i class="icon ion-sad"></i> 
+  </div>
+  <div>Run time: {{data.runTime}} / max: {{data.minMax.cardio.min}} || Exempt: {{data.settings.runExempt}}</div>
+  <div 
+      class="item range range-positive"
+      ng-hide="data.settings.bodyCompExempt">
+    <i class="icon ion-ribbon-a"></i>
+    <input type="range" name="bodyComp" min="0" max="40" value="10" ng-model="data.bodyCompSlider">
+    <i class="icon ion-sad"></i> 
+  </div>
+  <div>Body Comp: {{data.bodyComp}}</div>
+  <div 
+      class="item range range-positive"
+      ng-hide="data.settings.pushupsExempt">
+     <i class="icon ion-sad"></i> 
+    <input type="range" name="pushUp" min="{{data.minMax.pushups.min}}" max="{{data.minMax.pushups.max}}" value="10" ng-model="data.pushUpSlider">
+    <i class="icon ion-ribbon-a"></i>
+  </div>
+  <div>Push Ups: {{data.pushUpSlider}} || max: {{data.minMax.pushups.max}} || min:{{data.minMax.pushups.min}} </div>
+  <div 
+    class="item range range-positive"
+    ng-hide="data.settings.situpsExempt">
+    <i class="icon ion-sad"></i> 
+    <input type="range" name="sitUp" min="{{data.minMax.situps.min}}" max="{{data.minMax.situps.max}}" value="10" ng-model="data.sitUpSlider">
+    <i class="icon ion-ribbon-a"></i>
+  </div>
+  <div>Sit Ups: {{data.sitUpSlider}} || max: {{data.minMax.situps.max}} || min:{{data.minMax.situps.min}} </div>
+
+  </ion-content>
+</ion-view>

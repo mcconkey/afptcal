@@ -1,0 +1,40 @@
+<ion-view view-title="Options">
+  <ion-content >
+    <div class="list">
+		<div class="item item-divider">
+    		Age
+  		</div>
+		<div class="item range range-positive">
+			{{config.displayAge}}
+	    	<input type="range" name="volume" min="0" max="4" value="0" ng-model="config.ageSlider">
+	    </div>
+  		<!--<div class="item item-divider">
+    		Sex
+  		</div>
+  		<ion-toggle ng-class="{positive: config.sexToggle==true, assertive: config.sexToggle==false}" ng-model="config.sexToggle">
+         	M/F: {{config.displaySex}}
+        </ion-toggle>
+      </div> -->
+		<div class="item item-divider">
+    		Exemptions
+  		</div>
+        <ion-checkbox ng-model="config.runExempt" >
+         	Run
+        </ion-checkbox>
+       <ion-checkbox ng-model="config.walkExempt" ng-checked="data.checked">
+         	Walk
+        </ion-checkbox>
+        <ion-checkbox ng-model="config.situpsExempt" ng-checked="data.checked">
+         	Sit-Ups
+        </ion-checkbox>
+        <ion-checkbox ng-model="config.pushupsExempt" ng-checked="data.checked">
+         	Push-Ups
+       </ion-checkbox>
+        <ion-checkbox ng-model="config.bodyCompExempt" ng-checked="data.checked">
+         	Body Composition
+        </ion-checkbox>
+	  </div>	  
+  </div>
+
+  </ion-content>
+</ion-view>
